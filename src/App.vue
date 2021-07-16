@@ -1,15 +1,23 @@
 <template>
-  <div id="app"></div>
+  <!-- <div id="app"></div> -->
   <Nav></Nav>
+  <TranslationWelcome></TranslationWelcome>
   <router-view :key="$route.fullPath"></router-view>
 </template>
 
 <script>
 import Nav from './components/Nav.vue';
+import TranslationWelcome from './components/TranslationWelcome.vue';
 
 export default {
   name: 'App',
-  components: { Nav },
+  emits: ['updateLocale'],
+  components: {
+    Nav,
+    TranslationWelcome,
+  },
+  methods: {
+  },
 };
 </script>
 

@@ -32,15 +32,44 @@ export default {
       categories: [],
     };
   },
+  // apollo: {
+  //   categories: gql`
+  //     query Categories {
+  //       categories {
+  //         id
+  //         name
+  //       }
+  //     }
+  //   `,
+  // },
   apollo: {
-    categories: gql`
-      query Categories {
-        categories {
-          id
-          name
+    categories: {
+      query: gql`
+        query Categories($language: String!) {
+          categories(locale: $language) {
+            id
+            name
+          }
         }
-      }
-    `,
+      `,
+      // Reactive parameters
+      variables() {
+        // Use vue reactive properties here
+        return {
+          language: this.$store.state.lang,
+        };
+      },
+      update(data) {
+        // console.log(data);
+        // The returned value will update
+        // the vue property 'pingMessage'
+        return data.categories;
+      },
+      // Error handling
+      error(error) {
+        console.error("We've got an error!", error);
+      },
+    },
   },
 };
 </script>
